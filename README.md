@@ -14,13 +14,13 @@ The training data was provided by Udacity pre-uploaded to nVidia Digits platform
 ### GoogLeNet Model Results
 The GoogLeNet model was trained with `5` epochs and a initial learning rate of `0.001`. 
 
-As shown in the results below, it runs fast enough - between `5.99853ms` and `7.95829ms`, and has good performance - about `75.41%` accuracy.
+As shown in the results below, it runs fast enough - somewhere around `7ms~8ms`, and has good performance - about `75.41%` accuracy.
 
 ![alt text](./misc/conveyor_obj_id_googlenet_1_training_loss.png)
 
 ![alt text](./misc/conveyor_obj_id_googlenet_1.png)
 
-Trained model can be found at `models/20180828-195243-84d9_epoch_5.0_conveyor_obj_id_googlenet_1.tar.gz`.
+Trained model can be found at `models/20180914-182959-afd7_epoch_6.0_conveyor_obj_id_googlenet_1.tar.gz`.
 
 
 ### AlexNet model Results
@@ -40,7 +40,7 @@ However, the model is over `200MB` hence wasn't able to be uploaded to GitHub du
 
 
 ### Abstract
-This part is about the student custom task, where I trained a model to identify US dollar bill value by reading an image taken at the front of the bill. 3 categories are selected, 1- dollar bill, 10-dollar bill and 20-dollar bill.
+This part is about the student custom task, where I trained a model to identify US dollar bill value by reading an image taken at the front of the bill. 3 categories are selected, 1 USD bill, 10 USD bill and 20 USD bill.
 
 ### Introduction
 Using machine learning to identify bank notes has less restrictions than traditional optical sensor based methods. For example, it does not require the bill to be completely flat, and also allows the bills to be presented in orientations. Hardware requirement can also be simplified, where only a USB camera is used as opposed to some custom made optical sensor. Updating the system is also easier. Since it is machine learning based, we only need to update the model to take into account new bills.
@@ -89,9 +89,10 @@ In the end, the resized images for each dollar bill are stored in separate folde
 To make them available for training, all images were uploaded to `/home/workspace/data` folder on DIGITS. A new data set was then created, summarys are given below.
 
 ![alt text](./misc/training_val_data_summary.png)
-where a total of 1850 training images and 617 validation images were retrieved for 3 classes - 1USD, 10USD and 20USD bills. Breakdowns are below.
 
-| # of images | 1USD | 10USD | 20USD |
+where a total of 1850 training images and 617 validation images were retrieved for 3 classes - 1 USD, 10 USD and 20 USD bills. Breakdowns are below.
+
+| # of images | 1 USD | 10 USD | 20 USD |
 |:-----------:|:----:|:-----:|:-----:|
 | Training    | 789  | 603   | 458   |
 | Validation  | 263  | 201   | 153   |
@@ -118,7 +119,7 @@ Learning rate
 
 ![alt text](./misc/usd_classification_googlenet_1_result_2.png)
 
-As in the fgiures, the learning rate started from 0.01, then reduced to 0.001 and eventually down to . Some results are shown below.
+As in the fgiures, the learning rate started from 0.01, then reduced to 0.001 and eventually down to 0.0001. Some results are shown below.
 
 1 USD bill identification
 
@@ -136,9 +137,8 @@ As in the fgiures, the learning rate started from 0.01, then reduced to 0.001 an
 ### Discussion
 GoogLeNet in general has better accuracy than AlexNet in both assignments. It however requires more computing power and longer time to train. While running in real-time environment, it takes a bit longer time run the model to classify an image than AlexNet, due to the more complex network structure. But that time should be improved using Jetson TX2.
 
-Stochastic optimizer is the go-to optimizer I use, and it appears good enough in handling large data set and being able to sufficiently optimize the model.
-
+Stochastic optimizer is the go-to optimizer I use, and it appears good enough in handling large data set and being able to sufficiently optimize the model with fewer epochs.
 
 
 ### Conclusion / Future work
-The trained GoogLeNet worked fairly well in classifying US dollar bills. With more enhancements, it can potentially replace the existing machines in many scenarios. However, for banks or other organizations that requires authentication validation, more work needs to be done to this model. For example, a high resolution image may be required to identify counterfeit bills. Also, some special light condition may also be needed to reflect water marks or other special security features on the bill.
+The trained GoogLeNet worked fairly well in classifying US dollar bills. With more enhancements, it can potentially replace the existing machines in many scenarios. However, for banks or other organizations that requires banknote authentication, more work needs to be done. For example, a high resolution image may be required to identify counterfeit bills. Also, some special lighting may also be needed to reflect water marks or other special security features on the bill. These factors will result in bigger models and longer inference time while running in real-time environment.
